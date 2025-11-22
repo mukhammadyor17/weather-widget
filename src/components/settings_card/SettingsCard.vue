@@ -1,10 +1,10 @@
 <template>
-  <page-header>
+  <base-header>
     <h1 class="text-xl">Settings</h1>
-    <router-link :to="{ name: 'HomePage' }">
+    <button @click="emit('changeComponent')">
       <close-icon />
-    </router-link>
-  </page-header>
+    </button>
+  </base-header>
 
   <div class="mt-4">
     <div class="mb-5 flex gap-4">
@@ -62,7 +62,9 @@ import draggableComponent from 'vuedraggable'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import TrashIcon from '@/components/icons/TrashIcon.vue'
 import MenuIcon from '@/components/icons/MenuIcon.vue'
-import PageHeader from '@/components/page_header/PageHeader.vue'
+import BaseHeader from '../base_header/BaseHeader.vue'
+
+const emit = defineEmits(['changeComponent'])
 
 const cityStore = useCityStore()
 const cityName = ref('')

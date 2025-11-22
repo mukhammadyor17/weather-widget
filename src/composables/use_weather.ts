@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-import { getWeather } from '@/views/home_view/api/get_weather'
+import { getWeather } from '../queries/get_weather'
 
 export function useWeather(city: string) {
   return useQuery({
