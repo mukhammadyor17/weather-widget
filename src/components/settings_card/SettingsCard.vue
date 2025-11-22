@@ -29,7 +29,7 @@
     <p v-if="alreadyExists" class="text-red-500 text-xs mb-4">This city is already added.</p>
 
     <draggable-component
-      v-model="cityStore.cities"
+      v-model="cities"
       group="cities"
       animation="200"
       item-key="element"
@@ -45,7 +45,7 @@
           </div>
           <button
             class="cursor-pointer text-red-500 hover:text-red-700 transition"
-            @click="removeCity(element)"
+            @click="removeCityHandler(element)"
           >
             <trash-icon />
           </button>
@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useCityStore } from '@/stores/city_store'
+import { addCity, removeCity, cities } from '@/stores/city_store'
 import draggableComponent from 'vuedraggable'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import TrashIcon from '@/components/icons/TrashIcon.vue'
@@ -66,11 +66,10 @@ import BaseHeader from '../base_header/BaseHeader.vue'
 
 const emit = defineEmits(['changeComponent'])
 
-const cityStore = useCityStore()
 const cityName = ref('')
 
 const alreadyExists = computed(() =>
-  cityStore.cities.map((c) => c.toLowerCase()).includes(cityName.value.toLowerCase()),
+  cities.value.map((c) => c.toLowerCase()).includes(cityName.value.toLowerCase()),
 )
 
 const isInvalidInput = computed(() => !cityName.value || alreadyExists.value)
@@ -78,13 +77,13 @@ const isInvalidInput = computed(() => !cityName.value || alreadyExists.value)
 const addNewCity = () => {
   if (isInvalidInput.value) return
 
-  cityStore.addCity(cityName.value)
+  addCity(cityName.value)
   cityName.value = ''
 }
 
-const removeCity = (city: string) => {
+const removeCityHandler = (city: string) => {
   if (confirm(`Remove "${city}"?`)) {
-    cityStore.removeCity(city)
+    removeCity(city)
   }
 }
 </script>

@@ -1,12 +1,7 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { VueQueryPlugin } from '@tanstack/vue-query'
+import { defineCustomElement } from 'vue'
 import './assets/main.css'
 
-import App from './App.vue'
-const app = createApp(App)
+import WeatherWidget from './WeatherWidget.vue'
+const element = defineCustomElement(WeatherWidget)
 
-app.use(createPinia())
-app.use(VueQueryPlugin)
-
-app.mount('#app')
+customElements.define('weather-widget', element)

@@ -22,3 +22,7 @@ const setActiveComponent = () => {
   activeComponent.value = activeComponent.value == 'home' ? 'settings' : 'home'
 }
 </script>
+
+<style>
+@import './assets/main.css';
+</style>

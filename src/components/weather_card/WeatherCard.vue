@@ -2,18 +2,18 @@
   <div class="flex justify-center">
     <div v-if="isLoading" class="text-gray-500 text-lg py-10">Loading...</div>
     <div
-      v-else
+      v-if="data"
       class="w-80 bg-white rounded-3xl p-5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-gray-100"
     >
       <div class="text-center mb-4">
         <h2 class="text-2xl font-semibold text-gray-900">{{ data.name }}</h2>
         <p class="text-sm text-gray-500 capitalize">
-          {{ data.weather[0].description }}
+          {{ data.weather[0]?.description }}
         </p>
       </div>
       <div class="flex flex-col items-center gap-2">
         <img
-          :src="`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`"
+          :src="`https://openweathermap.org/img/wn/${data.weather[0]?.icon}@2x.png`"
           class="w-24 h-24"
           alt="weather icon"
         />

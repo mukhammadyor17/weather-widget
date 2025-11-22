@@ -1,36 +1,35 @@
-// vite.config.ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath, URL } from 'node:url'
+import { resolve } from 'path'
 
-export default defineConfig(({ command }) => ({
+export default defineConfig({
   plugins: [
     vue({
-      customElement: command === 'build',
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag === 'weather-widget',
-        },
-      },
+      customElement: true,
     }),
-    tailwindcss(),
   ],
-
+  define: {
+    'process.env.NODE_ENV': '"production"',
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': resolve(__dirname, 'src'),
     },
   },
-
-  build:
-    command === 'build'
-      ? {
-          lib: {
-            entry: './src/widget.ts',
-            formats: ['es'],
-            fileName: () => 'weather-widget.js',
-          },
-        }
-      : undefined,
-}))
+  build: {
+    lib: {
+      entry: './src/main.ts',
+      name: 'WeatherWidget',
+      fileName: 'weather-widget',
+      formats: ['es'],
+    },
+    rollupOptions: {
+      external: [],
+      output: {
+        globals: {},
+      },
+    },
+    cssCodeSplit: false,
+    minify: 'terser',
+  },
+})
