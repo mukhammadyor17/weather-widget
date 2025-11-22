@@ -6,5 +6,6 @@ export function useWeather(city: string) {
     queryKey: ['weather', city],
     queryFn: () => getWeather(city),
     staleTime: 1000 * 60 * 5,
+    refetchInterval: 1000 * 60 * 2,
   })
 }
